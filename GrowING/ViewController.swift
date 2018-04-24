@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     }
     
     private func splitImage(image: UIImage, row: Int, colum: Int, insideView: UIView) {
-        let imageSize = insideView.frame.size
+        let imageSize = image.size
         var xPos: CGFloat = 0.0
         var yPos: CGFloat = 0.0
         let width: CGFloat = imageSize.width / CGFloat(colum)
