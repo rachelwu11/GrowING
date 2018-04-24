@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         }
         
         let holder = UIView(frame: CGRect(x: 0, y: 100, width: scaledImage.size.width, height: scaledImage.size.height))
-        splitImage(image: scaledImage, row: 3, colum: 3, insideView: holder)
+        splitImage(image: scaledImage, row: 5, colum: 3, insideView: holder)
     }
     
     private func splitImage(image: UIImage, row: Int, colum: Int, insideView: UIView) {
@@ -28,10 +28,12 @@ class ViewController: UIViewController {
         var yPos: CGFloat = 0.0
         let width: CGFloat = imageSize.width / CGFloat(colum)
         let height: CGFloat = imageSize.height / CGFloat(row)
+        let screenScale = UIScreen.main.scale
         for aIntY in 0..<row {
             xPos = 0.0
             for aIntX in 0..<colum {
-                let rect = CGRect(x: xPos, y: yPos, width: width, height: height)
+                
+                let rect = CGRect(x: xPos, y: yPos, width: width * screenScale, height: height * screenScale)
                 let cImage: CGImage = (image.cgImage?.cropping(to: rect))!
                 let aImgRef = UIImage(cgImage: cImage)
                 let aImgView = UIImageView(frame: CGRect(x: CGFloat(aIntX) * insideView.frame.size.width/CGFloat(colum), y: CGFloat(aIntY)*insideView.frame.size.height/CGFloat(row), width: insideView.frame.size.width/CGFloat(colum), height: insideView.frame.size.height/CGFloat(row)))
@@ -39,9 +41,9 @@ class ViewController: UIViewController {
                 aImgView.layer.borderColor = UIColor.black.cgColor
                 aImgView.layer.borderWidth = 0.5
                 insideView.addSubview(aImgView)
-                xPos += width
+                xPos += width * screenScale
             }
-            yPos += height
+            yPos += height * screenScale
         }
         view.addSubview(insideView)
     }
